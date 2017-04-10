@@ -1,0 +1,39 @@
+{
+  "name": "ts-css-loader",
+  "version": "1.0.0",
+  "description": "Create typescript typings css modules loaded using css-loader",
+  "main": "lib/loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf lib/*",
+    "prebuild": "npm run clean",
+    "build": "tsc -p src --pretty",
+    "prewatch": "npm run clean",
+    "watch": "tsc -p src --watch --pretty"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MortenHoustonLudvigsen/ts-css-loader.git"
+  },
+  "keywords": [
+    "ts-loader",
+    "webpack",
+    "webpack loader",
+    "loader",
+    "typescript",
+    "ts",
+    "css",
+    "TypeScript"
+  ],
+  "author": "Morten Houston Ludvigsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MortenHoustonLudvigsen/ts-css-loader/issues"
+  },
+  "homepage": "https://github.com/MortenHoustonLudvigsen/ts-css-loader#readme",
+  "devDependencies": {
+    "@types/webpack": "^2.2.14",
+    "rimraf": "^2.6.1",
+    "typescript": "^2.2.2"
+  }
+}
