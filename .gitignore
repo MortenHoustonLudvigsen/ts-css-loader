@@ -37,4 +37,6 @@ jspm_packages
 .node_repl_history
 
 # Output
-lib
+lib/
+test/lib/
+test/wwwroot/
