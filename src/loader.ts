@@ -16,19 +16,18 @@ function initialize(context: Context): void {
 
     context.compiler.plugin('watch-run', (watching: Watching, callback: (err?: any) => void) => {
         try {
-            const watchFileSystem = watching.compiler && watching.compiler.watchFileSystem;
-            const watcher = watchFileSystem && watchFileSystem.watcher || watchFileSystem && watchFileSystem.wfs && watchFileSystem.wfs.watcher;
-            const times = watcher && watcher.getTimes();
+            files.clear();
+            callback();
+        } catch (ex) {
+            callback(ex);
+        }
+    });
 
-            if (times) {
-                for (const filePath of Object.keys(times)) {
-                    const time = times[filePath];
-                    const file = files.getDts(filePath);
-                    if (file && time > file.time) {
-                        files.remove(filePath);
-                    }
-                }
-            }
+    context.compiler.plugin('emit', (compilation: Compilation, callback: (err?: any) => void) => {
+        try {
+            compilation.fileDependencies = compilation.fileDependencies
+                .filter(file => !files.hasDts(file));
+
             callback();
         } catch (ex) {
             callback(ex);
@@ -58,41 +57,23 @@ async function loadCssModules(context: Context, imports: Iterable<string>) {
 
     const modules = await Promise.all(promises);
 
-    const dependencies: string[] = [];
     for (const module of modules) {
-        dependencies.push(module.path);
+        context.addFile(module.dtsPath, module.contents);
+        context.loader.addDependency(module.path);
     }
-    return dependencies;
 }
 
 const cssTypesLoader: loader.Loader = function (this: loader.LoaderContext, source: string | Buffer, sourceMap: string | Buffer) {
     const callback = this.async() || this.callback;
-
-    const dependencies = this.getDependencies()
-        // .filter(f => !files.hasDts(f))
-        .concat(this.data.dependencies);
-
-    this.clearDependencies();
-
-    for (const dependency of dependencies) {
-        this.addDependency(dependency);
-    }
-
-    // Pass source and map on to next loader
-    callback(null, source, sourceMap);
-};
-
-cssTypesLoader.pitch = function (this: loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any | undefined {
-    const callback = this.async() || this.callback;
-
-    console.log(`ts-css-loader: Loading modules for ${this.resourcePath}`);
-
     const context = new Context(this);
     initialize(context);
 
     loadCssModules(context, parseImports(context, this.resourcePath))
-        .then(dependencies => data.dependencies = dependencies)
-        .then(() => callback(null), err => callback(err));
+        .then(() => callback(null, source, sourceMap), err => callback(err));
+};
+
+cssTypesLoader.pitch = function (this: loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any | undefined {
+    data['ts-loader-files'] = {};
 };
 
 export = cssTypesLoader;

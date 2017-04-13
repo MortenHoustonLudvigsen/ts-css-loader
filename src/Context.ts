@@ -25,6 +25,10 @@ export class Context {
         return path.relative(this.compiler.outputPath, this.saveFilePath).replace(/\\/g, '/');
     }
 
+    addFile(filePath: string, contents: string) {
+        this.loader.data['ts-loader-files'][path.normalize(filePath)] = contents;
+    }
+
     fileExists(path: string): boolean {
         return this.ts.sys.fileExists(path);
     }

@@ -36,6 +36,11 @@ export class FileCache {
         return file;
     }
 
+    clear(): void {
+        this._cache.clear();
+        this._dtsCache.clear();
+    }
+
     remove(filePath: string): void {
         const file = this.get(filePath);
         if (file) {
