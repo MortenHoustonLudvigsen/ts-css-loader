@@ -1,19 +1,20 @@
 {
   "name": "ts-css-loader",
   "version": "1.0.0",
-  "description": "Create typescript typings css modules loaded using css-loader",
+  "description": "Generate typescript typings for css modules loaded using css-loader",
   "main": "lib/loader.js",
   "scripts": {
-    "pretest": "npm run build && npm run clean-typings",
+    "pretest": "npm run clean-typings",
     "test": "webpack --config test/webpack.config.js --hide-modules",
     "prebuild-test": "rimraf test/lib/*",
-    "build-test": "tsc -p test/src --pretty",
+    "build-test": "tsc -p test/src",
+    "build-and-test": "npm run build && npm test",
     "clean-typings": "rimraf test/src/**/*.css.d.ts",
     "clean": "rimraf lib/* test/lib/* test/wwwroot/*",
     "prebuild": "npm run clean",
-    "build": "tsc -p src --pretty",
+    "build": "tsc -p src",
     "prewatch": "npm run clean",
-    "watch": "tsc -p src --watch --pretty"
+    "watch": "tsc -p src --watch"
   },
   "repository": {
     "type": "git",
