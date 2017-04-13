@@ -47,6 +47,6 @@
     "loader-utils": "^1.1.0"
   },
   "peerDependencies": {
-    "typescript": ">=2.3.0"
+    "typescript": ">=1.6.0"
   }
 }
