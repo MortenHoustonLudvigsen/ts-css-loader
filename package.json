@@ -4,8 +4,10 @@
   "description": "Create typescript typings css modules loaded using css-loader",
   "main": "lib/loader.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rimraf lib/*",
+    "pretest": "npm run build",
+    "test": "webpack --config test/webpack.config.js --hide-modules",
+    "posttest": "tsc -p test/src --pretty",
+    "clean": "rimraf lib/* test/lib/*",
     "prebuild": "npm run clean",
     "build": "tsc -p src --pretty",
     "prewatch": "npm run clean",
@@ -33,7 +35,16 @@
   "homepage": "https://github.com/MortenHoustonLudvigsen/ts-css-loader#readme",
   "devDependencies": {
     "@types/webpack": "^2.2.14",
+    "css-loader": "^0.28.0",
     "rimraf": "^2.6.1",
-    "typescript": "^2.2.2"
+    "ts-loader": "^0.8.1",
+    "typescript": "^2.3.0",
+    "webpack": "^2.3.3"
+  },
+  "dependencies": {
+    "loader-utils": "^1.1.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=2.3.0"
   }
 }
