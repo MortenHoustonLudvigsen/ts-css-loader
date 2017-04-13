@@ -14,24 +14,6 @@ function initialize(context: Context): void {
     if (inititialized) return;
     inititialized = true;
 
-    context.compiler.plugin('before-run', (compiler: Compiler, callback: (err?: any) => void) => {
-        try {
-            console.log('before-run');
-            callback();
-        } catch (ex) {
-            callback(ex);
-        }
-    });
-
-    // context.compiler.plugin('compilation', (compilation: Compilation) => {
-    //     compilation.plugin('build-module', module => {
-    //         console.log(`build module: ${module.resource}`);
-    //     });
-    //     compilation.plugin('succeed-module', module => {
-    //         console.log(`module succeeded: ${module.resource}`);
-    //     });
-    // });
-
     context.compiler.plugin('watch-run', (watching: Watching, callback: (err?: any) => void) => {
         try {
             const watchFileSystem = watching.compiler && watching.compiler.watchFileSystem;
@@ -43,7 +25,6 @@ function initialize(context: Context): void {
                     const time = times[filePath];
                     const file = files.getDts(filePath);
                     if (file && time > file.time) {
-                        console.log(`Removing ${filePath}`);
                         files.remove(filePath);
                     }
                 }
@@ -53,34 +34,6 @@ function initialize(context: Context): void {
             callback(ex);
         }
     });
-
-    // context.compiler.plugin('compilation', (compilation: Compilation) => {
-    //     compilation.plugin('after-seal', function (callback: (err?: any) => void) {
-    //         try {
-    //             console.log(compilation.fileTimestamps);
-    //             // console.log(Object.keys(compilation));
-    //             // compilation.fileDependencies = compilation.fileDependencies.filter(file => !files.hasDts(file));
-    //             callback();
-    //         } catch (ex) {
-    //             callback(ex);
-    //         }
-    //     });
-    // });
-
-    // if (context.options.save) {
-    //     context.compiler.plugin('emit', (compilation: Compilation, callback: (err?: any) => void) => {
-    //         try {
-    //             const contents = files.serialize(context.saveFilePath);
-    //             compilation.assets[context.assetPath] = {
-    //                 source: () => contents,
-    //                 size: () => contents.length
-    //             };
-    //             callback();
-    //         } catch (ex) {
-    //             callback(ex);
-    //         }
-    //     });
-    // }
 }
 
 function loadCssModule(context: Context, filePath: string): Promise<File> {
@@ -105,23 +58,41 @@ async function loadCssModules(context: Context, imports: Iterable<string>) {
 
     const modules = await Promise.all(promises);
 
+    const dependencies: string[] = [];
     for (const module of modules) {
-        // console.log(`Adding dependency to ${module.path}`);
-        context.loader.addDependency(module.path);
+        dependencies.push(module.path);
     }
+    return dependencies;
 }
 
-function cssTypesLoader(this: loader.LoaderContext, source: string | Buffer, sourceMap: string | Buffer) {
+const cssTypesLoader: loader.Loader = function (this: loader.LoaderContext, source: string | Buffer, sourceMap: string | Buffer) {
     const callback = this.async() || this.callback;
 
-    console.log(`ts-css-loader: load ${this.resourcePath}`);
+    const dependencies = this.getDependencies()
+        // .filter(f => !files.hasDts(f))
+        .concat(this.data.dependencies);
+
+    this.clearDependencies();
+
+    for (const dependency of dependencies) {
+        this.addDependency(dependency);
+    }
+
+    // Pass source and map on to next loader
+    callback(null, source, sourceMap);
+};
+
+cssTypesLoader.pitch = function (this: loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any | undefined {
+    const callback = this.async() || this.callback;
+
+    console.log(`ts-css-loader: Loading modules for ${this.resourcePath}`);
 
     const context = new Context(this);
     initialize(context);
 
     loadCssModules(context, parseImports(context, this.resourcePath))
-        // Pass source and map on to next loader
-        .then(() => callback(null, source, sourceMap), err => callback(err));
-}
+        .then(dependencies => data.dependencies = dependencies)
+        .then(() => callback(null), err => callback(err));
+};
 
 export = cssTypesLoader;

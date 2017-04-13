@@ -47,6 +47,7 @@ declare module 'webpack' {
              * Use this function if you need to know the source code of another module to generate the result.
              */
             loadModule: (request: string, callback: (err: any, source: string, sourceMap: any, module: any) => void) => void;
+            getDependencies: () => string[];
         }
     }
 }

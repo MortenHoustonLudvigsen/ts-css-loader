@@ -31,14 +31,15 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: [
-          { loader: 'ts-loader' },
           {
+            // ts-css-loader must be before ts-loader
             loader: 'ts-css-loader',
             options: {
               // test must match test in the css-loader rule
               test: /\.css$/
             }
-          }
+          },
+          { loader: 'ts-loader' }
         ]
       }
     ]

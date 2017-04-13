@@ -3,7 +3,8 @@
     "module": "commonjs",
     "lib": ["es5", "es2015", "dom"],
     "target": "es5",
-    "outDir": "../lib/"
+    "outDir": "../lib/",
+    "plugins": [ { "name": "../../plugin" } ]
   },
   "compileOnSave": false
 }
