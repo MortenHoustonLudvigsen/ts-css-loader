@@ -33,7 +33,10 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: [
-                    { loader: 'ts-loader' },
+                    {
+                        loader: 'ts-loader',
+                        options: { usePreviousLoaderGeneratedFiles: true }
+                    },
                     {
                         loader: path.resolve(root, '../lib/loader'),
                         options: { test: /\.css$/ }

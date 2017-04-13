@@ -45,7 +45,7 @@ function loadCssModule(context: Context, filePath: string): Promise<File> {
             if (err) return reject(err);
             const contents = parse(context.ts, source);
             const file = files.add(filePath, contents);
-            context.writeFileIfChanged(file.path + '.d.ts', file.contents, file.stats);
+            // context.writeFileIfChanged(file.path + '.d.ts', file.contents, file.stats);
             resolve(file);
         });
     });
