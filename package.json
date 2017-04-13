@@ -40,7 +40,7 @@
     "@types/webpack": "^2.2.14",
     "css-loader": "^0.28.0",
     "rimraf": "^2.6.1",
-    "ts-loader": "^0.8.1",
+    "ts-loader": "^2.0.3",
     "typescript": "^2.3.0",
     "webpack": "^2.3.3"
   },
