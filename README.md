@@ -1,3 +1,4 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/c3oxe4mrxd8spjn2/branch/master?svg=true)](https://ci.appveyor.com/project/MortenHoustonLudvigsen/ts-css-loader/branch/master)
 # ts-css-loader
 Create typescript typings for css modules generated using css-loader
 
