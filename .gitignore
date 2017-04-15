@@ -39,4 +39,5 @@ jspm_packages
 # Output
 lib/
 test/lib/
+test/.test/
 test/wwwroot/
