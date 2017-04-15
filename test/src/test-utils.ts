@@ -23,8 +23,7 @@ export function testExists(test: string): boolean {
 
 export function pathExists(path: string): boolean {
     try {
-        fs.accessSync(path, fs.constants.F_OK);
-        return true;
+        return fs.existsSync(path);
     } catch (e) {
         return false;
     }
