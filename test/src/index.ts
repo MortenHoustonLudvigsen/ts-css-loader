@@ -1,4 +1,10 @@
-import * as css from './index.css';
-import { Game } from './components/Game';
+import 'source-map-support/register';
+import { runTests } from './run-tests';
 
-console.log(Game);
+try {
+    runTests();
+} catch (err) {
+    console.error(err);
+    process.exitCode = 1;
+}
+

@@ -64,26 +64,10 @@ npm run build
 
 ### Testing
 
-At the moment there is a simple test project in `./test`.
+At the moment there is a simple test project in `./test/tests/basic`.
 
 To run webpack on the test project:
 
 ```
-npm test
+npm run build && npm test
 ```
-
-This will run webpack, but at the moment, it will not check that the results are correct. For now, the output from webpack can be checked manually by looking at `./test/wwwroot/bundle.js`.
-
-To run webpack on the test project with watch enabled:
-
-```
-npm test -- --watch
-```
-
-ts-css-loader will create a typing file (`.d.ts`) for each CSS Module. To check that they work with other tools try building the test project with `tsc` by running:
-
-```
-npm run build-test
-```
-
-Again the result is not checked for correctness. For now, the output from tsc can be checked manually by looking at the files in `./test/lib`.

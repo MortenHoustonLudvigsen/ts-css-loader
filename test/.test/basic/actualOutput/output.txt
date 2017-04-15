@@ -1,0 +1,17 @@
+    Asset     Size  Chunks             Chunk Names
+bundle.js  5.31 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 2.09 kB [entry] [rendered]
+    [0] ./test/.test/basic/src/components/Board.css 546 bytes {0} [built]
+    [1] ./test/.test/basic/src/components/Game.css 891 bytes {0} [built]
+    [2] ./test/.test/basic/src/components/Game.ts 310 bytes {0} [built] [1 error]
+    [3] ./test/.test/basic/src/components/Board.ts 190 bytes {0} [built] [1 error]
+    [4] ./test/.test/basic/src/index.ts 150 bytes {0} [built] [1 error]
+
+ERROR in ./test/.test/basic/src/components/Game.ts
+[37m([39m[36m1[39m,[36m22[39m): [31merror TS2307: Cannot find module './Game.css'.[39m
+
+ERROR in ./test/.test/basic/src/components/Board.ts
+[37m([39m[36m1[39m,[36m22[39m): [31merror TS2307: Cannot find module './Board.css'.[39m
+
+ERROR in ./test/.test/basic/src/index.ts
+[37m([39m[36m1[39m,[36m22[39m): [31merror TS2307: Cannot find module './index.css'.[39m
