@@ -1,9 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "lib": ["es5", "es2015"],
     "target": "es5",
-    "downlevelIteration": true,
     "sourceMap": true,
     "outDir": "../lib/"
   },

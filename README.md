@@ -69,5 +69,5 @@ At the moment there is a simple test project in `./test/tests/basic`.
 To run webpack on the test project:
 
 ```
-npm run build && npm test
+npm run build && npm run build-test && npm test
 ```

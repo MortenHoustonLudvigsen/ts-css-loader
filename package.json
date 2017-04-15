@@ -4,7 +4,6 @@
   "description": "Generate typescript typings for css modules loaded using css-loader",
   "main": "lib/ts-css-loader.js",
   "scripts": {
-    "pretest": "tsc -p test/src",
     "test": "node test/lib/index.js",
     "prebuild-test": "rimraf test/lib/*",
     "build-test": "tsc -p test/src",
