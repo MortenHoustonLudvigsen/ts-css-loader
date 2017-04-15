@@ -27,7 +27,7 @@ module.exports = {
                 options: {
                     modules: true,
                     camelCase: true,
-                    localIdentName: '[path][name]-[local]-[hash:base64:5]'
+                    localIdentName: '[path][name]-[local]'
                 }
             },
             {

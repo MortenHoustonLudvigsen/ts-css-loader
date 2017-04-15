@@ -75,13 +75,13 @@ exports = module.exports = __webpack_require__(!(function webpackMissingModule()
 
 
 // module
-exports.push([module.i, ".src-components-Board-board-row-3y3-3:after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: table;\r\n}\r\n\r\n.src-components-Board-status-3z9-k {\r\n    margin-bottom: 10px;\r\n}\r\n", ""]);
+exports.push([module.i, ".src-components-Board-board-row:after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: table;\r\n}\r\n\r\n.src-components-Board-status {\r\n    margin-bottom: 10px;\r\n}\r\n", ""]);
 
 // exports
 exports.locals = {
-	"board-row": "src-components-Board-board-row-3y3-3",
-	"boardRow": "src-components-Board-board-row-3y3-3",
-	"status": "src-components-Board-status-3z9-k"
+	"board-row": "src-components-Board-board-row",
+	"boardRow": "src-components-Board-board-row",
+	"status": "src-components-Board-status"
 };
 
 /***/ }),
@@ -93,17 +93,17 @@ exports = module.exports = __webpack_require__(!(function webpackMissingModule()
 
 
 // module
-exports.push([module.i, ".src-components-Game-game-3mRuP {\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.src-components-Game-game-board-3REsK {\r\n    margin-right: 20px;\r\n}\r\n\r\n.src-components-Game-game-info-38eO7 {\r\n    margin-left: 20px;\r\n}\r\n\r\n.src-components-Game-game-footer-3Bfp4 {\r\n    margin-top: 20px;\r\n}\r\n", ""]);
+exports.push([module.i, ".src-components-Game-game {\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.src-components-Game-game-board {\r\n    margin-right: 20px;\r\n}\r\n\r\n.src-components-Game-game-info {\r\n    margin-left: 20px;\r\n}\r\n\r\n.src-components-Game-game-footer {\r\n    margin-top: 20px;\r\n}\r\n", ""]);
 
 // exports
 exports.locals = {
-	"game": "src-components-Game-game-3mRuP",
-	"game-board": "src-components-Game-game-board-3REsK",
-	"gameBoard": "src-components-Game-game-board-3REsK",
-	"game-info": "src-components-Game-game-info-38eO7",
-	"gameInfo": "src-components-Game-game-info-38eO7",
-	"game-footer": "src-components-Game-game-footer-3Bfp4",
-	"gameFooter": "src-components-Game-game-footer-3Bfp4"
+	"game": "src-components-Game-game",
+	"game-board": "src-components-Game-game-board",
+	"gameBoard": "src-components-Game-game-board",
+	"game-info": "src-components-Game-game-info",
+	"gameInfo": "src-components-Game-game-info",
+	"game-footer": "src-components-Game-game-footer",
+	"gameFooter": "src-components-Game-game-footer"
 };
 
 /***/ }),

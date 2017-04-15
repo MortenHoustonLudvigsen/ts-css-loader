@@ -1,8 +1,8 @@
     Asset     Size  Chunks             Chunk Names
-bundle.js  5.32 kB       0  [emitted]  main
-chunk    {0} bundle.js (main) 2.09 kB [entry] [rendered]
-    [0] ./test/.test/basic/src/components/Board.css 546 bytes {0} [built]
-    [1] ./test/.test/basic/src/components/Game.css 891 bytes {0} [built]
+bundle.js  5.22 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 1.99 kB [entry] [rendered]
+    [0] ./test/.test/basic/src/components/Board.css 516 bytes {0} [built]
+    [1] ./test/.test/basic/src/components/Game.css 825 bytes {0} [built]
     [2] ./test/.test/basic/src/components/Game.ts 310 bytes {0} [built]
     [3] ./test/.test/basic/src/components/Board.ts 190 bytes {0} [built]
     [4] ./test/.test/basic/src/index.ts 150 bytes {0} [built]
