@@ -287,6 +287,7 @@ function getNormalisedFileContent(file: string, location: string): string {
 function normaliseString(platformSpecificContent: string): string {
     return platformSpecificContent
         .replace(/\r\n/g, '\n')
+        .replace(/\\r\\n/g, '\\n')
         // replace C:/source/ts-loader/index.js or /home/travis/build/TypeStrong/ts-loader/index.js with ts-loader
         .replace(/ \S+[\/|\\]ts-loader[\/|\\]index.js/, 'ts-loader')
         // replace (C:/source/ts-loader/dist/index.js with (ts-loader)
