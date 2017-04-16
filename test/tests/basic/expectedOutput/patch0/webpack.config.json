@@ -1,0 +1,60 @@
+{
+    "context": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic",
+    "entry": {
+        "main": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic\\src\\index.ts"
+    },
+    "output": {
+        "filename": "bundle.js",
+        "path": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic\\.output",
+        "publicPath": "/"
+    },
+    "resolve": {
+        "extensions": [
+            ".ts",
+            ".tsx",
+            ".js"
+        ]
+    },
+    "module": {
+        "rules": [
+            {
+                "test": {},
+                "loader": "css-loader",
+                "options": {
+                    "modules": true,
+                    "camelCase": true,
+                    "localIdentName": "[path][name]-[local]"
+                }
+            },
+            {
+                "test": {},
+                "use": [
+                    {
+                        "loader": "ts-loader",
+                        "options": {
+                            "usePreviousLoaderGeneratedFiles": true,
+                            "silent": true
+                        }
+                    },
+                    {
+                        "loader": "ts-css-loader",
+                        "options": {
+                            "test": {}
+                        }
+                    }
+                ]
+            },
+            {
+                "test": {},
+                "loader": "newLine"
+            }
+        ]
+    },
+    "resolveLoader": {
+        "alias": {
+            "ts-css-loader": "C:\\Data\\GitHub\\ts-css-loader\\lib\\ts-css-loader.js",
+            "passthrough-loader": "C:\\Data\\GitHub\\ts-css-loader\\lib\\passthrough-loader.js",
+            "newLine": "C:\\Data\\GitHub\\ts-css-loader\\test\\lib\\newline.loader.js"
+        }
+    }
+}

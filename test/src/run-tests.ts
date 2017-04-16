@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import * as cp from 'child_process';
 import * as minimist from 'minimist';
 import * as rimraf from 'rimraf';
@@ -88,7 +87,7 @@ function runTest(test: string, saveOutput: boolean): boolean {
         if (saveOutput) {
             command += ' --save-output';
         }
-        const testOutput = cp.execSync(command, { stdio: 'inherit' });
+        cp.execSync(command, { stdio: 'inherit' });
         return true;
     }
     catch (err) {

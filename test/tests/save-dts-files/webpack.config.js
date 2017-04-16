@@ -39,7 +39,7 @@ module.exports = {
                     },
                     {
                         loader: 'ts-css-loader',
-                        options: { test: /\.css$/ }
+                        options: { test: /\.css$/, save: true }
                     },
                 ]
             }
