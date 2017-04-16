@@ -1,11 +1,17 @@
     Asset     Size  Chunks             Chunk Names
-bundle.js  5.23 kB       0  [emitted]  main
-chunk    {0} bundle.js (main) 2 kB [entry] [rendered]
-    [0] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0}
+bundle.js  62.7 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 59 kB [entry] [rendered]
+    [0] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0} [built]
     [1] ./test/.test/save-dts-files/src/components/Game.css 830 bytes {0} [built]
     [2] ./test/.test/save-dts-files/src/components/Game.ts 310 bytes {0} [built] [1 error]
-    [3] ./test/.test/save-dts-files/src/components/Board.ts 190 bytes {0} [built]
+    [3] ./test/.test/save-dts-files/src/components/Board.ts 190 bytes {0}
     [4] ./test/.test/save-dts-files/src/index.ts 150 bytes {0}
+    [6] ./~/base64-js/index.js 3.48 kB {0} [built]
+    [7] ./~/buffer/index.js 48.6 kB {0} [built]
+    [8] ./~/css-loader/lib/css-base.js 2.19 kB {0} [built]
+    [9] ./~/ieee754/index.js 2.05 kB {0} [built]
+   [10] ./~/isarray/index.js 132 bytes {0} [built]
+   [11] (webpack)/buildin/global.js 488 bytes {0} [built]
 
 ERROR in ./test/.test/save-dts-files/src/components/Game.ts
 [37m([39m[36m9[39m,[36m21[39m): [31merror TS2339: Property 'gameFooter' does not exist on type 'typeof "/test/.test/save-dts-files/src/components/Game.css"'.[39m
