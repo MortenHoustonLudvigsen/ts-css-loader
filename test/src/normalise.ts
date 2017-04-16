@@ -6,7 +6,7 @@ import { TestSuite } from './TestSuite';
 export function normaliseOutput(contents: string): string {
     return normaliseString(contents)
         // We don't want a difference in the number of kilobytes to fail the build
-        .replace(/[\d]+[.][\d]* kB/g, ' A-NUMBER-OF kB')
+        .replace(/ \d+(\.\d*)? kB/g, ' A-NUMBER-OF kB')
         // We also don't want a difference in the number of bytes to fail the build
         .replace(/ \d+ bytes /g, ' A-NUMBER-OF bytes ')
         // Sometimes "[built]" is written to output, and sometimes not. This should not fail the build
