@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as Tapable from 'tapable';
-import { Compiler } from 'webpack';
+import * as webpack from 'webpack';
 
 declare module 'webpack' {
     interface Compiler {

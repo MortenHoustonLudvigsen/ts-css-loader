@@ -1,60 +1,88 @@
 import * as path from 'path';
-import * as typescript from 'typescript';
-import { Context } from './Context';
+import * as webpack from 'webpack';
+import { Options } from './Options';
+import { TsHost } from './TsHost';
+import { parseImports } from './Imports';
+import { modules, Module } from './ModuleCache';
 
-export function parse(ts: typeof typescript, source: string): string {
-    function generateTypeDefinitions(classNames: string[]) {
-        let typings = '';
+export class CssModules {
+    constructor(readonly host: TsHost, readonly loader: webpack.loader.LoaderContext, readonly options: Options) {
+    }
 
-        // Generate default object
-        typings += '// Default object containing all local CSS classes\n';
-        typings += 'declare const __styles: {\n';
-        for (const className of classNames) {
-            typings += `    ${JSON.stringify(className)}: string;\n`;
+    async loadCssModules(sourceText: string): Promise<Module[]> {
+        const promises = Array.from(parseImports(this.host, this.loader.resourcePath, sourceText, this.options.test))
+            .map(filePath => this.loadCssModule(filePath));
+
+        const modules = await Promise.all(promises);
+
+        for (const module of modules) {
+            this.loader.data['ts-loader-files'][module.dtsPath] = module.contents;
+            this.loader.addDependency(module.path);
         }
-        typings += '};\n';
-        typings += 'export default __styles;\n\n';
 
-        // Generate named exports
-        let firstNamedExport = true;
-        for (const className of classNames) {
-            if (className !== '__styles' && isValidIdentifier(className)) {
-                if (firstNamedExport) {
-                    typings += '// Named exports with local CSS classes whose names are valid identifiers\n';
+        return modules;
+    }
+
+    private loadCssModule(filePath: string): Promise<Module> {
+        return new Promise<Module>((resolve, reject) => {
+            const file = modules.get(filePath);
+            if (file) {
+                return resolve(file);
+            }
+            this.loader.loadModule(filePath, (err, source) => {
+                if (err) return reject(err);
+                const contents = this.parseCssModule(source);
+                const file = modules.add(filePath, contents);
+                if (this.options.save) {
+                    this.host.writeFileIfChanged(file.dtsPath, file.contents);
                 }
-                firstNamedExport = false;
-                typings += `export const ${className}: string;\n`;
-            }
-        }
-
-        return typings;
+                resolve(file);
+            });
+        });
     }
 
-    function parseClassNames(source: string): string[] {
-        const match = /exports.locals\s*=\s*({[^}]*})/.exec(source);
-        const locals = match && JSON.parse(match[1]) || {};
-        const classNames = [];
-        for (const className in locals) {
-            if (locals.hasOwnProperty(className)) {
-                classNames.push(className);
+    private parseCssModule(source: string): string {
+        const host = this.host;
+
+        function generateTypeDefinitions(classNames: string[]) {
+            let typings = '';
+
+            // Generate default object
+            typings += '// Default object containing all local CSS classes\n';
+            typings += 'declare const __styles: {\n';
+            for (const className of classNames) {
+                typings += `    ${JSON.stringify(className)}: string;\n`;
             }
-        }
-        return classNames;
-    }
+            typings += '};\n';
+            typings += 'export default __styles;\n\n';
 
-    function isValidIdentifier(identifier: string): boolean {
-        if (!ts.isIdentifierStart(identifier.charCodeAt(0), ts.ScriptTarget.Latest)) {
-            return false;
-        }
-
-        for (let i = 1; i < identifier.length; i++) {
-            if (!ts.isIdentifierPart(identifier.charCodeAt(i), ts.ScriptTarget.Latest)) {
-                return false;
+            // Generate named exports
+            let firstNamedExport = true;
+            for (const className of classNames) {
+                if (className !== '__styles' && host.isValidIdentifier(className)) {
+                    if (firstNamedExport) {
+                        typings += '// Named exports with local CSS classes whose names are valid identifiers\n';
+                    }
+                    firstNamedExport = false;
+                    typings += `export const ${className}: string;\n`;
+                }
             }
+
+            return typings;
         }
 
-        return true;
-    }
+        function parseClassNames(source: string): string[] {
+            const match = /exports.locals\s*=\s*({[^}]*})/.exec(source);
+            const locals = match && JSON.parse(match[1]) || {};
+            const classNames = [];
+            for (const className in locals) {
+                if (locals.hasOwnProperty(className)) {
+                    classNames.push(className);
+                }
+            }
+            return classNames;
+        }
 
-    return generateTypeDefinitions(parseClassNames(source));
+        return generateTypeDefinitions(parseClassNames(source));
+    }
 }

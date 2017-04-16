@@ -1,5 +1,4 @@
-import * as typescript from 'typescript';
-import { loader } from 'webpack';
+import * as webpack from 'webpack';
 import * as loaderUtils from 'loader-utils';
 
 export interface Options {
@@ -8,7 +7,7 @@ export interface Options {
     save: boolean;
 }
 
-export function getOptions(loader: loader.LoaderContext): Options {
+export function getOptions(loader: webpack.loader.LoaderContext): Options {
     return Object.assign({}, {
         compiler: 'typescript',
         test: /\.css$/,

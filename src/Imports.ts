@@ -1,19 +1,21 @@
 import * as path from 'path';
-import { Context } from './Context';
+import { TsHost } from './TsHost';
 
 let importCache: { [modulePath: string]: Set<string> } = {};
 
-export function clearImports(): void {
+export function clearImports() {
     importCache = {};
 }
 
-export function parseImports(context: Context, modulePath: string, seen: { [modulePath: string]: boolean } = {}): Iterable<string> {
+export function parseImports(host: TsHost, modulePath: string, sourceText: string | undefined, predicate: RegExp | ((filePath: string) => boolean), seen: { [modulePath: string]: boolean } = {}): Iterable<string> {
     if (seen[modulePath]) {
         return empty<string>();
     }
     seen[modulePath] = true;
 
-    modulePath = context.resolveModulePath(modulePath);
+    predicate = normalisePredicate(predicate);
+
+    modulePath = host.resolveModulePath(modulePath);
     seen[modulePath] = true;
 
     let imports = importCache[modulePath];
@@ -23,17 +25,20 @@ export function parseImports(context: Context, modulePath: string, seen: { [modu
 
     importCache[modulePath] = imports = new Set<string>();
 
-    const sourceText = context.readFile(modulePath);
-    const { importedFiles } = context.ts.preProcessFile(sourceText || '');
+    if (sourceText === undefined) {
+        sourceText = host.readFile(modulePath);
+    }
+    
+    const { importedFiles } = host.preProcessFile(sourceText || '');
 
     for (const importFile of importedFiles) {
-        let fileName = importFile.fileName;
-        if (context.isRelative(fileName)) {
-            fileName = path.resolve(path.dirname(modulePath), fileName);
-            if (context.include.test(fileName)) {
-                imports.add(fileName);
+        let importPath = importFile.fileName;
+        if (host.isRelative(importPath)) {
+            importPath = path.resolve(path.dirname(modulePath), importPath);
+            if (predicate(importPath)) {
+                imports.add(importPath);
             } else {
-                for (const imp of parseImports(context, fileName, seen)) {
+                for (const imp of parseImports(host, importPath, undefined, predicate, seen)) {
                     imports.add(imp);
                 }
             }
@@ -47,3 +52,9 @@ export function parseImports(context: Context, modulePath: string, seen: { [modu
 function* empty<T>(): Iterable<T> {
 }
 
+function normalisePredicate(predicate: RegExp | ((str: string) => boolean)): (str: string) => boolean {
+    if (predicate instanceof RegExp) {
+        return predicate.test.bind(predicate);
+    }
+    return predicate;
+}
