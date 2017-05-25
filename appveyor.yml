@@ -13,8 +13,6 @@ environment:
 install:
   - ps: Install-Product node $env:nodejs_version
   - npm install
-  - npm run build
-  - npm run build-test
   - npm install %TYPESCRIPT%
 test_script:
   - node --version
