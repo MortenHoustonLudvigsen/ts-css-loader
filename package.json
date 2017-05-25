@@ -4,16 +4,18 @@
   "description": "Generate typescript typings for css modules loaded using css-loader",
   "main": "lib/ts-css-loader.js",
   "scripts": {
+    "clean:lib": "rimraf lib/* test/lib/*",
+    "prebuild:lib": "npm run clean:lib",
+    "build:lib": "tsc -p src",
+    "clean:test": "rimraf test/lib/*",
+    "prebuild:test": "npm run clean:test",
+    "build:test": "tsc -p test/src",
+    "build": "npm run build:lib && npm run build:test",
+    "prewatch": "npm run clean:lib",
+    "watch": "tsc -p src --watch",
+    "pretest": "npm run build",
     "test": "node test/lib/index.js",
-    "prebuild-test": "rimraf test/lib/*",
-    "build-test": "tsc -p test/src",
-    "build-and-test": "npm run build && npm test",
-    "clean-typings": "rimraf test/src/**/*.css.d.ts",
-    "clean": "rimraf lib/* test/lib/* test/wwwroot/*",
-    "prebuild": "npm run clean",
-    "build": "tsc -p src",
-    "prewatch": "npm run clean",
-    "watch": "tsc -p src --watch"
+    "prepublishOnly": "npm test"
   },
   "repository": {
     "type": "git",
@@ -51,7 +53,7 @@
     "mocha": "^3.2.0",
     "rimraf": "^2.6.1",
     "source-map-support": "^0.4.14",
-    "ts-loader": "^2.0.3",
+    "ts-loader": "^2.1.0",
     "typescript": "^2.3.0",
     "webpack": "^2.4.1"
   },
