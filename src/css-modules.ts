@@ -9,21 +9,14 @@ export class CssModules {
     constructor(readonly host: TsHost, readonly loader: webpack.loader.LoaderContext, readonly options: Options) {
     }
 
-    async loadCssModules(sourceText: string): Promise<Module[]> {
+    loadCssModules(sourceText: string, prequel: string): Promise<Module[]> {
         const promises = Array.from(parseImports(this.host, this.loader.resourcePath, sourceText, this.options.test))
-            .map(filePath => this.loadCssModule(filePath));
+            .map(filePath => this.loadCssModule(filePath, prequel));
 
-        const modules = await Promise.all(promises);
-
-        for (const module of modules) {
-            this.loader.data['ts-loader-files'][module.dtsPath] = module.contents;
-            this.loader.addDependency(module.path);
-        }
-
-        return modules;
+        return Promise.all(promises);
     }
 
-    private loadCssModule(filePath: string): Promise<Module> {
+    private loadCssModule(filePath: string, prequel: string): Promise<Module> {
         return new Promise<Module>((resolve, reject) => {
             const file = modules.get(filePath);
             if (file) {
@@ -32,7 +25,7 @@ export class CssModules {
             this.loader.loadModule(filePath, (err, source) => {
                 if (err) return reject(err);
                 const contents = this.parseCssModule(source);
-                const file = modules.add(filePath, contents);
+                const file = modules.add(filePath, `${prequel}\n\n${contents}`);
                 if (this.options.save) {
                     this.host.writeFileIfChanged(file.dtsPath, file.contents);
                 }
