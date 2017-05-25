@@ -1,6 +1,8 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/c3oxe4mrxd8spjn2/branch/master?svg=true)](https://ci.appveyor.com/project/MortenHoustonLudvigsen/ts-css-loader/branch/master) [![Build Status](https://travis-ci.org/MortenHoustonLudvigsen/ts-css-loader.svg?branch=master)](https://travis-ci.org/MortenHoustonLudvigsen/ts-css-loader)
 # ts-css-loader
 
+**_This package is not ready for use_**
+
 Create [TypeScript](http://www.typescriptlang.org/) typings for [CSS Modules](https://github.com/css-modules/css-modules) generated using [css-loader](https://github.com/webpack-contrib/css-loader) in [webpack](https://webpack.js.org/) for use with [ts-loader](https://github.com/TypeStrong/ts-loader).
 
 ## Installation
