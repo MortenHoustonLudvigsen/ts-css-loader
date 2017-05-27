@@ -13,9 +13,10 @@
     "build": "npm run build:lib && npm run build:test",
     "prewatch": "npm run clean:lib",
     "watch": "tsc -p src --watch",
-    "pretest": "npm run build",
+    "prebuild-and-test": "npm run build",
+    "build-and-test": "node test/lib/index.js",
     "test": "node test/lib/index.js",
-    "prepublishOnly": "npm test"
+    "prepublishOnly": "npm run build-and-test"
   },
   "repository": {
     "type": "git",
