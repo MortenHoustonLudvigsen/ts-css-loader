@@ -1,12 +1,8 @@
 {
-    "context": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\save-dts-files",
-    "entry": {
-        "main": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\save-dts-files\\src\\index.ts"
-    },
+    "entry": "./src/index.ts",
     "output": {
         "filename": "bundle.js",
-        "path": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\save-dts-files\\.output",
-        "publicPath": "/"
+        "path": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\save-dts-files\\.output"
     },
     "resolve": {
         "extensions": [
@@ -51,6 +47,7 @@
             }
         ]
     },
+    "context": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\save-dts-files",
     "resolveLoader": {
         "alias": {
             "ts-css-loader": "C:\\Data\\GitHub\\ts-css-loader\\lib\\ts-css-loader.js",

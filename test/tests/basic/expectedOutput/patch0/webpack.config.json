@@ -1,12 +1,8 @@
 {
-    "context": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic",
-    "entry": {
-        "main": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic\\src\\index.ts"
-    },
+    "entry": "./src/index.ts",
     "output": {
         "filename": "bundle.js",
-        "path": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic\\.output",
-        "publicPath": "/"
+        "path": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic\\.output"
     },
     "resolve": {
         "extensions": [
@@ -50,6 +46,7 @@
             }
         ]
     },
+    "context": "C:\\Data\\GitHub\\ts-css-loader\\test\\.test\\basic",
     "resolveLoader": {
         "alias": {
             "ts-css-loader": "C:\\Data\\GitHub\\ts-css-loader\\lib\\ts-css-loader.js",

@@ -3,8 +3,6 @@
 // See: https://github.com/MortenHoustonLudvigsen/ts-css-loader
 // ------------------------------------------------------------------------
 
-// Default object containing all local CSS classes
-declare const __styles: {
+// Object containing all local CSS classes
+export const locals: {
 };
-export default __styles;
-

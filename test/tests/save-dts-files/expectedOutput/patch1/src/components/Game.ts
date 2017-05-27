@@ -1,4 +1,4 @@
-import * as css from './Game.css';
+import { locals as css } from './Game.css';
 import { Board } from './Board';
 
 export const Game = {

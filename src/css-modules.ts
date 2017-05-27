@@ -40,26 +40,26 @@ export class CssModules {
         function generateTypeDefinitions(classNames: string[]) {
             let typings = '';
 
-            // Generate default object
-            typings += '// Default object containing all local CSS classes\n';
-            typings += 'declare const __styles: {\n';
+            // Generate locals object
+            typings += '// Object containing all local CSS classes\n';
+            typings += 'export const locals: {\n';
             for (const className of classNames) {
                 typings += `    ${JSON.stringify(className)}: string;\n`;
             }
             typings += '};\n';
-            typings += 'export default __styles;\n\n';
+            // typings += 'export default __styles;\n\n';
 
-            // Generate named exports
-            let firstNamedExport = true;
-            for (const className of classNames) {
-                if (className !== '__styles' && host.isValidIdentifier(className)) {
-                    if (firstNamedExport) {
-                        typings += '// Named exports with local CSS classes whose names are valid identifiers\n';
-                    }
-                    firstNamedExport = false;
-                    typings += `export const ${className}: string;\n`;
-                }
-            }
+            // // Generate named exports
+            // let firstNamedExport = true;
+            // for (const className of classNames) {
+            //     if (className !== '__styles' && host.isValidIdentifier(className)) {
+            //         if (firstNamedExport) {
+            //             typings += '// Named exports with local CSS classes whose names are valid identifiers\n';
+            //         }
+            //         firstNamedExport = false;
+            //         typings += `export const ${className}: string;\n`;
+            //     }
+            // }
 
             return typings;
         }

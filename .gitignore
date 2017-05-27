@@ -40,4 +40,3 @@ jspm_packages
 lib/
 test/lib/
 test/.test/
-test/wwwroot/

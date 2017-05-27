@@ -3,8 +3,8 @@
 // See: https://github.com/MortenHoustonLudvigsen/ts-css-loader
 // ------------------------------------------------------------------------
 
-// Default object containing all local CSS classes
-declare const __styles: {
+// Object containing all local CSS classes
+export const locals: {
     "game": string;
     "game-board": string;
     "gameBoard": string;
@@ -13,10 +13,3 @@ declare const __styles: {
     "game-footer": string;
     "gameFooter": string;
 };
-export default __styles;
-
-// Named exports with local CSS classes whose names are valid identifiers
-export const game: string;
-export const gameBoard: string;
-export const gameInfo: string;
-export const gameFooter: string;

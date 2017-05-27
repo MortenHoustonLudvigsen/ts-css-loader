@@ -70,7 +70,7 @@ function isNewModule(module: webpack.Module): module is webpack.NewModule {
 function cleanWebPackOutput(test: TestSuite, stats: any): void {
     if (stats) {
         const escapedStagingPath = utils.stagingPath.replace(new RegExp(regexEscape('\\'), 'g'), '\\\\');
-        for (const file of glob.sync('**/*', { cwd: test.paths.webpackOutput, nodir: true })) {
+        for (const file of glob.sync('**/*', { cwd: test.paths.webpackOutput, nodir: true, dot: true })) {
             const filePath = path.resolve(test.paths.webpackOutput, file);
             const content = fs.readFileSync(filePath, 'utf-8')
                 .split(stats.hash).join('[hash]')
@@ -113,8 +113,8 @@ function storeStats(test: TestSuite, stats: any) {
 function compareFiles(test: TestSuite) {
     if (!test.shouldSaveOutput) {
         // compare actual to expected
-        const actualFiles = glob.sync('**/*', { cwd: test.paths.actualPatchOutput, nodir: true });
-        const expectedFiles = glob.sync('**/*', { cwd: test.paths.expectedPatchOutput, nodir: true })
+        const actualFiles = glob.sync('**/*', { cwd: test.paths.actualPatchOutput, nodir: true, dot: true });
+        const expectedFiles = glob.sync('**/*', { cwd: test.paths.expectedPatchOutput, nodir: true, dot: true })
             .filter(function (file) { return !/^patch/.test(file); });
         const allFiles: any = {};
 

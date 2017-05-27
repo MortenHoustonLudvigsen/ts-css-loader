@@ -86,19 +86,13 @@ With the configution above, and given a file `Game.css`:
 
 ```typescript
 // Default object containing all local CSS classes
-declare const __styles: {
+export const locals: {
     "game": string;
     "game-info": string;
     "gameInfo": string;
     "game-footer": string;
     "gameFooter": string;
 };
-export default __styles;
-
-// Named exports with local CSS classes whose names are valid identifiers
-export const game: string;
-export const gameInfo: string;
-export const gameFooter: string;
 ```
 
 If the option `save` is `true` these typings will also be saved to file `Game.css.d.ts`.
@@ -106,7 +100,7 @@ If the option `save` is `true` these typings will also be saved to file `Game.cs
 It is now possible to import `Game.css` in [TypeScript](http://www.typescriptlang.org/):
 
 ```typescript
-import * as css from './Game.css';
+import { locals as css } from './Game.css';
 
 const html = `<div class="${css.game}"></div>`;
 ```

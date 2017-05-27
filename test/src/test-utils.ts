@@ -46,7 +46,7 @@ export function recreateDirectories(...dirs: string[]): void {
 
 export function copyDirectory(src: string, dest: string, predicate?: (fileName: string) => boolean): void {
     if (predicate) {
-        for (const fileName of glob.sync('*', { cwd: src, nodir: false }).filter(predicate)) {
+        for (const fileName of glob.sync('*', { cwd: src, nodir: false, dot: true }).filter(predicate)) {
             const srcPath = path.resolve(src, fileName);
             const destPath = path.resolve(dest, fileName);
             rimraf.sync(destPath);
@@ -71,7 +71,7 @@ export function applyPatch(src: string, dest: string): void {
         }
     }
 
-    for (const fileName of glob.sync('**/*', { cwd: src, nodir: true })) {
+    for (const fileName of glob.sync('**/*', { cwd: src, nodir: true, dot: true })) {
         const srcFilePath = path.resolve(src, fileName);
         const srcContents = readFile(srcFilePath);
         if (path.basename(fileName) === '.delete') {

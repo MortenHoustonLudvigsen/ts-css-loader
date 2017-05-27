@@ -1,4 +1,4 @@
-import * as css from './Board.css';
+import { locals as css } from './Board.css';
 
 export const Board = {
     boardRow: css.boardRow,

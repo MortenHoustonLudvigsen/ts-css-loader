@@ -1,18 +1,10 @@
 ﻿const path = require('path');
 
-const root = path.resolve(__dirname);
-
 module.exports = {
-    context: root,
-
-    entry: {
-        main: path.resolve(root, './src/index.ts')
-    },
+    entry: './src/index.ts',
 
     output: {
-        filename: 'bundle.js',
-        path: path.resolve(root, 'wwwroot'),
-        publicPath: '/'
+        filename: 'bundle.js'
     },
 
     resolve: {
