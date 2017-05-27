@@ -63,11 +63,25 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "body {\r\n    font: 14px \"Century Gothic\", Futura, sans-serif;\r\n    margin: 20px;\r\n}\r\n\r\nol, ul {\r\n    padding-left: 30px;\r\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)(undefined);
@@ -85,7 +99,7 @@ exports.locals = {
 };
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../../../node_modules/css-loader/lib/css-base.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))(undefined);
@@ -107,14 +121,14 @@ exports.locals = {
 };
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Game_css_1 = __webpack_require__(1);
-var Board_1 = __webpack_require__(3);
+var Game_css_1 = __webpack_require__(2);
+var Board_1 = __webpack_require__(4);
 exports.Game = {
     Board: Board_1.Board,
     game: Game_css_1.locals.game,
@@ -122,20 +136,7 @@ exports.Game = {
     gameInfo: Game_css_1.locals.gameInfo,
     gameFooter: Game_css_1.locals.gameFooter
 };
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Board_css_1 = __webpack_require__(0);
-exports.Board = {
-    boardRow: Board_css_1.locals.boardRow,
-    status: Board_css_1.locals.status
-};
+console.log(exports.Game);
 
 
 /***/ }),
@@ -145,12 +146,28 @@ exports.Board = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Game_1 = __webpack_require__(2);
+var Board_css_1 = __webpack_require__(1);
+exports.Board = {
+    boardRow: Board_css_1.locals.boardRow,
+    status: Board_css_1.locals.status
+};
+console.log(exports.Board);
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_css_1 = __webpack_require__(0);
+var Game_1 = __webpack_require__(3);
+console.log(index_css_1.locals);
 console.log(Game_1.Game);
 
 
 /***/ }),
-/* 5 */,
 /* 6 */
 /***/ (function(module, exports) {
 

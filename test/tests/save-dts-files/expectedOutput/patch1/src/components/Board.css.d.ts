@@ -5,7 +5,7 @@
 
 // Object containing all local CSS classes
 export const locals: {
-    "board-row": string;
-    "boardRow": string;
-    "status": string;
+    'board-row': string;
+    boardRow: string;
+    status: string;
 };

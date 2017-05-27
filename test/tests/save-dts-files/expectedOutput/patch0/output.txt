@@ -1,8 +1,9 @@
     Asset     Size  Chunks             Chunk Names
-bundle.js  5.32 kB       0  [emitted]  main
-chunk    {0} bundle.js (main) 2.09 kB [entry] [rendered]
-    [0] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0} [built]
-    [1] ./test/.test/save-dts-files/src/components/Game.css 825 bytes {0} [built]
-    [2] ./test/.test/save-dts-files/src/components/Game.ts 373 bytes {0} [built]
-    [3] ./test/.test/save-dts-files/src/components/Board.ts 228 bytes {0} [built]
-    [4] ./test/.test/save-dts-files/src/index.ts 150 bytes {0} [built]
+bundle.js  5.98 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 2.54 kB [entry] [rendered]
+    [0] ./test/.test/save-dts-files/src/index.css 314 bytes {0} [built]
+    [1] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0} [built]
+    [2] ./test/.test/save-dts-files/src/components/Game.css 825 bytes {0} [built]
+    [3] ./test/.test/save-dts-files/src/components/Game.ts 401 bytes {0} [built]
+    [4] ./test/.test/save-dts-files/src/components/Board.ts 257 bytes {0} [built]
+    [5] ./test/.test/save-dts-files/src/index.ts 227 bytes {0} [built]

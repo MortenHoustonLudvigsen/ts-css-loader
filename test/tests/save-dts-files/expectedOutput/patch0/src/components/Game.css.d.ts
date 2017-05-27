@@ -5,11 +5,11 @@
 
 // Object containing all local CSS classes
 export const locals: {
-    "game": string;
-    "game-board": string;
-    "gameBoard": string;
-    "game-info": string;
-    "gameInfo": string;
-    "game-footer": string;
-    "gameFooter": string;
+    game: string;
+    'game-board': string;
+    gameBoard: string;
+    'game-info': string;
+    gameInfo: string;
+    'game-footer': string;
+    gameFooter: string;
 };

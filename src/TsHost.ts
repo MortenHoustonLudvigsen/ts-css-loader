@@ -61,18 +61,28 @@ export class TsHost {
         return modulePath;
     }
 
+    private _scanner: typescript.Scanner;
+    private get scanner(): typescript.Scanner {
+        return this._scanner = this._scanner || this.ts.createScanner(this.ts.ScriptTarget.Latest, /*skipTrivia*/ true);
+    }
+
     isValidIdentifier(identifier: string): boolean {
-        if (!this.ts.isIdentifierStart(identifier.charCodeAt(0), this.ts.ScriptTarget.Latest)) {
-            return false;
-        }
+        this.scanner.setText(identifier);
+        return this.scanner.scan() === this.ts.SyntaxKind.Identifier
+            && this.scanner.scan() === this.ts.SyntaxKind.EndOfFileToken;
+    }
 
-        for (let i = 1; i < identifier.length; i++) {
-            if (!this.ts.isIdentifierPart(identifier.charCodeAt(i), this.ts.ScriptTarget.Latest)) {
-                return false;
-            }
+    identifier(name: string): string {
+        if (this.isValidIdentifier(name)) {
+            return name;
         }
-
-        return true;
+        if (!/'/.test(name)) {
+            return `'${name}'`;
+        }
+        if (!/"/.test(name)) {
+            return `"${name}"`;
+        }
+        return `'${name.replace("'", "\\'")}'`;
     }
 
     preProcessFile(sourceText: string, readImportFiles?: boolean, detectJavaScriptImports?: boolean): typescript.PreProcessedFileInfo {

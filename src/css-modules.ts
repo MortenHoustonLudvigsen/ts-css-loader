@@ -44,22 +44,9 @@ export class CssModules {
             typings += '// Object containing all local CSS classes\n';
             typings += 'export const locals: {\n';
             for (const className of classNames) {
-                typings += `    ${JSON.stringify(className)}: string;\n`;
+                typings += `    ${host.identifier(className)}: string;\n`;
             }
             typings += '};\n';
-            // typings += 'export default __styles;\n\n';
-
-            // // Generate named exports
-            // let firstNamedExport = true;
-            // for (const className of classNames) {
-            //     if (className !== '__styles' && host.isValidIdentifier(className)) {
-            //         if (firstNamedExport) {
-            //             typings += '// Named exports with local CSS classes whose names are valid identifiers\n';
-            //         }
-            //         firstNamedExport = false;
-            //         typings += `export const ${className}: string;\n`;
-            //     }
-            // }
 
             return typings;
         }

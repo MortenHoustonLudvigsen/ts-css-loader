@@ -4,3 +4,5 @@ export const Board = {
     boardRow: css.boardRow,
     status: css.status
 };
+
+console.log(Board);

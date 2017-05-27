@@ -1,12 +1,13 @@
     Asset     Size  Chunks             Chunk Names
-bundle.js  7.45 kB       0  [emitted]  main
-chunk    {0} bundle.js (main) 4.33 kB [entry] [rendered]
-    [0] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0} [built]
-    [1] ./test/.test/save-dts-files/src/components/Game.css 798 bytes {0} [built]
-    [2] ./test/.test/save-dts-files/src/components/Game.ts 373 bytes {0} [built] [1 error]
-    [3] ./test/.test/save-dts-files/src/components/Board.ts 228 bytes {0}
-    [4] ./test/.test/save-dts-files/src/index.ts 150 bytes {0}
+bundle.js  7.92 kB       0  [emitted]  main
+chunk    {0} bundle.js (main) 4.77 kB [entry] [rendered]
+    [0] ./test/.test/save-dts-files/src/index.css 314 bytes {0} [built]
+    [1] ./test/.test/save-dts-files/src/components/Board.css 516 bytes {0} [built]
+    [2] ./test/.test/save-dts-files/src/components/Game.css 798 bytes {0} [built]
+    [3] ./test/.test/save-dts-files/src/components/Game.ts 401 bytes {0} [built] [1 error]
+    [4] ./test/.test/save-dts-files/src/components/Board.ts 257 bytes {0}
+    [5] ./test/.test/save-dts-files/src/index.ts 227 bytes {0}
     [6] ./~/css-loader/lib/css-base.js 2.26 kB {0} [built]
 
 ERROR in ./test/.test/save-dts-files/src/components/Game.ts
-[37m([39m[36m9[39m,[36m21[39m): [31merror TS2339: Property 'gameFooter' does not exist on type '{ "game": string; "game-board": string; "gameBoard": string; "game-info": string; "gameInfo": str...'.[39m
+[37m([39m[36m9[39m,[36m21[39m): [31merror TS2339: Property 'gameFooter' does not exist on type '{ game: string; 'game-board': string; gameBoard: string; 'game-info': string; gameInfo: string; '...'.[39m
