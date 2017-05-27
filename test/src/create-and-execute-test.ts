@@ -24,7 +24,6 @@ describe(test.title, function () {
         test.initTest();
 
         const config = createWebPackConfig(test);
-        fs.writeFileSync(path.resolve(test.paths.staging, 'webpack.config.json'), JSON.stringify(config, undefined, 4));
         const compiler = webpack(config);
         const watcher = compiler.watch({ aggregateTimeout: 1500 }, (err, stats) => {
             cleanWebPackOutput(test, stats);
