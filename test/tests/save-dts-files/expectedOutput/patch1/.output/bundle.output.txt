@@ -1,0 +1,17 @@
+C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:105
+exports = module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../../../node_modules/css-loader/lib/css-base.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))(undefined);
+                                                                                                                                                                                                                    ^
+
+Error: Cannot find module "../../../../../node_modules/css-loader/lib/css-base.js"
+    at webpackMissingModule (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:105:92)
+    at Object.defineProperty.value (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:105:223)
+    at __webpack_require__ (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:20:30)
+    at Object.defineProperty.value (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:130:18)
+    at __webpack_require__ (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:20:30)
+    at Object.module.exports.list (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:165:14)
+    at __webpack_require__ (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:20:30)
+    at C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:66:18
+    at Object.<anonymous> (C:\Data\GitHub\ts-css-loader\test\.test\save-dts-files\.output\bundle.js:69:10)
+    at Module._compile (module.js:571:32)
+
+child process exited with code 1

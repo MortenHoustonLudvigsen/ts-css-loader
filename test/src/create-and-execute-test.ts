@@ -1,6 +1,7 @@
 import 'mocha';
 import * as path from 'path';
 import * as fs from 'fs-extra';
+import { fork } from 'child_process';
 import * as assert from 'assert';
 import * as glob from 'glob';
 import * as minimist from 'minimist';
@@ -27,16 +28,16 @@ describe(test.title, function () {
         const compiler = webpack(config);
         const watcher = compiler.watch({ aggregateTimeout: 1500 }, (err, stats) => {
             cleanWebPackOutput(test, stats);
+            runBundle(test, () => {
+                test.copyResults();
 
-            test.copyResults();
+                handleErrors(test, err);
+                storeStats(test, stats);
+                test.saveOutput();
 
-            handleErrors(test, err);
-            storeStats(test, stats);
-
-            test.saveOutput();
-
-            compareFiles(test);
-            copyPatchOrEndTest(test, watcher, done);
+                compareFiles(test);
+                copyPatchOrEndTest(test, watcher, done);
+            });
         });
     });
 });
@@ -91,6 +92,29 @@ function handleErrors(test: TestSuite, err: any) {
         const errFilePath = path.resolve(test.paths.actualPatchOutput, errFileName);
         fs.writeFileSync(errFilePath, errString);
     }
+}
+
+function runBundle(test: TestSuite, callback: () => void): void {
+    var proc = fork(test.paths.bundle, [], {
+        cwd: test.paths.webpackOutput,
+        silent: true
+    });
+
+    let output = '';
+
+    proc.stdout.on('data', data => output += data);
+    proc.stderr.on('data', data => output += data);
+
+    proc.on('error', err => {
+        output += `${test.paths.bundle} failed with error:\n${err}`;
+    });
+
+    proc.on('close', code => {
+        output += `\nchild process exited with code ${code}\n`;
+        fs.writeFile(test.paths.bundleOutput, output, () => {
+            callback();
+        });
+    });
 }
 
 function storeStats(test: TestSuite, stats: any) {

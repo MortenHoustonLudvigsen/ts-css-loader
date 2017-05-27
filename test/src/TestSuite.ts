@@ -106,6 +106,12 @@ export class TestPaths {
     get webpackOutput(): string {
         return path.resolve(this.staging, '.output');
     }
+    get bundle(): string {
+        return path.resolve(this.webpackOutput, 'bundle.js');
+    }
+    get bundleOutput(): string {
+        return path.resolve(this.webpackOutput, 'bundle.output.txt');
+    }
     get patchInput(): string {
         return path.resolve(this.staging, this.test.patch);
     }
