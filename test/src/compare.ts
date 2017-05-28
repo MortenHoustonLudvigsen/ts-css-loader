@@ -19,14 +19,16 @@ export function compareFiles(test: TestSuite) {
         files,
         hasChanges: files.some(f => f.hasChanges),
         text: files.reduce((lines, file) => {
+            if (lines.length > 0) {
+                lines.push('');
+            }
             if (file.hasChanges) {
-                if (lines.length > 0) {
-                    lines.push('');
-                }
                 lines.push(chalk.red(`File ${file.patch}/${file.file}:`));
                 lines.push(chalk.green(`-expected `) + chalk.red(`+actual`));
                 lines.push('');
                 return lines.concat(file.diff);
+            } else {
+                lines.push(chalk.green(`File ${file.patch}/${file.file}: OK`));
             }
             return lines;
         }, <string[]>[])
