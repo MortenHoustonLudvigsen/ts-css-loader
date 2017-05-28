@@ -1,9 +1,9 @@
-import * as path from 'path';
 import * as webpack from 'webpack';
 import { Options } from './Options';
 import { TsHost } from './TsHost';
 import { parseImports } from './Imports';
 import { modules, Module } from './ModuleCache';
+import { loadModuleRecursive } from './loadModuleRecursive';
 
 export class CssModules {
     constructor(readonly host: TsHost, readonly loader: webpack.loader.LoaderContext, readonly options: Options) {
@@ -17,14 +17,15 @@ export class CssModules {
     }
 
     private loadCssModule(filePath: string, prequel: string): Promise<Module> {
+        // console.log(`loadCssModule('${filePath}', ...)`);
         return new Promise<Module>((resolve, reject) => {
             const file = modules.get(filePath);
             if (file) {
                 return resolve(file);
             }
-            this.loader.loadModule(filePath, (err, source) => {
+            loadModuleRecursive(this.loader, filePath, (err, source) => {
                 if (err) return reject(err);
-                const contents = this.parseCssModule(source);
+                const contents = this.parseCssModule(<string>source);
                 const file = modules.add(filePath, `${prequel}\n\n${contents}`);
                 if (this.options.save) {
                     this.host.writeFileIfChanged(file.dtsPath, file.contents);

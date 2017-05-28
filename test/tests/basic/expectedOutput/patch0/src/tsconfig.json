@@ -3,5 +3,8 @@
     "module": "commonjs",
     "target": "es5",
     "outDir": "../lib/"
-  }
+  },
+  "files": [
+    "./index.ts"
+  ]
 }

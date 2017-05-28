@@ -1,0 +1,10 @@
+undefined
+{ Board: 
+   { boardRow: 'src-components-Board-board-row',
+     status: 'src-components-Board-status' },
+  game: 'src-components-Game-game',
+  gameBoard: 'src-components-Game-game-board',
+  gameInfo: 'src-components-Game-game-info',
+  gameFooter: 'src-components-Game-game-footer' }
+
+child process exited with code 0

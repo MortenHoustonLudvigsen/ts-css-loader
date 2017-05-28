@@ -6,7 +6,8 @@ import * as assert from 'assert';
 const reservedFileNameRes = [
     /^expectedOutput(\/.*)?$/,
     /^actualOutput(\/.*)?$/,
-    /^webpack\.config\.js(\/.*)?$/,
+    /^webpack\.config\.js$/,
+    /^webpack\.config\.json$/,
     /^patch\d+(\/.*)?$/
 ];
 
@@ -56,7 +57,7 @@ export class TestSuite {
         utils.copyDirectory(this.paths.source, this.paths.staging);
 
         // ensure output directories
-        utils.recreateDirectories(this.paths.actualOutput, this.paths.webpackOutput);
+        utils.recreateDirectories(this.paths.actualOutput);
 
         // Check expected output
         if (this.shouldSaveOutput) {
@@ -83,7 +84,8 @@ export class TestSuite {
     copyResults() {
         utils.recreateDirectories(this.paths.actualPatchOutput);
         utils.copyDirectory(this.paths.staging, this.paths.actualPatchOutput, isNotReservedFileName);
-        rimraf.sync(this.paths.webpackOutput);
+        rimraf.sync(this.paths.bundle);
+        rimraf.sync(this.paths.bundleOutput);
     }
 
     saveOutput() {
@@ -103,14 +105,17 @@ export class TestPaths {
     get staging(): string {
         return path.resolve(utils.stagingPath, this.test.name);
     }
-    get webpackOutput(): string {
-        return path.resolve(this.staging, '.output');
+    get webpackConfig(): string{
+        return path.resolve(this.staging, 'webpack.config.js');
+    }
+    get webpackConfigJson(): string{
+        return path.resolve(this.staging, 'webpack.config.json');
     }
     get bundle(): string {
-        return path.resolve(this.webpackOutput, 'bundle.js');
+        return path.resolve(this.staging, 'bundle.js');
     }
     get bundleOutput(): string {
-        return path.resolve(this.webpackOutput, 'bundle.output.txt');
+        return path.resolve(this.staging, 'bundle.output.txt');
     }
     get patchInput(): string {
         return path.resolve(this.staging, this.test.patch);
@@ -120,6 +125,9 @@ export class TestPaths {
     }
     get actualPatchOutput(): string {
         return path.resolve(this.actualOutput, this.test.patch);
+    }
+    get actualPatchBundle(): string {
+        return path.resolve(this.actualPatchOutput, 'bundle.js');
     }
     get expectedOutput(): string {
         return path.resolve(this.staging, 'expectedOutput');

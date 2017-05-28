@@ -8,5 +8,3 @@ export const Game = {
     gameInfo: css.gameInfo,
     gameFooter: css.gameFooter
 };
-
-console.log(Game);

@@ -1,9 +1,8 @@
-import * as path from 'path';
 import * as webpack from 'webpack';
 import { getOptions } from './Options';
 import { TsHost } from './TsHost';
 import { files } from './FileCache';
-import { modules, Module } from './ModuleCache';
+import { modules } from './ModuleCache';
 import { clearImports } from './Imports';
 import { CssModules } from './css-modules';
 
@@ -56,8 +55,6 @@ const prequel = `
 `.trim();
 
 function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sourceMap: string | Buffer) {
-    initialize(this);
-
     const callback = this.async() || this.callback;
 
     const options = getOptions(this);
@@ -77,6 +74,7 @@ function loader(this: webpack.loader.LoaderContext, source: string | Buffer, sou
 
 namespace loader {
     export function pitch(this: webpack.loader.LoaderContext, remainingRequest: string, precedingRequest: string, data: any): any | undefined {
+        initialize(this);
         data[TsLoaderFilesKey] = data[TsLoaderFilesKey] || {};
     }
 }

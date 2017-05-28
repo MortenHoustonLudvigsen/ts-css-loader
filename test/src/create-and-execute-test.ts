@@ -3,13 +3,13 @@ import * as path from 'path';
 import * as fs from 'fs-extra';
 import { fork } from 'child_process';
 import * as assert from 'assert';
-import * as glob from 'glob';
 import * as minimist from 'minimist';
 import * as webpack from 'webpack';
-import regexEscape = require('escape-string-regexp');
-import { normaliseString, normaliseOutput, normaliseError, normaliseStats } from './normalise';
+// import regexEscape = require('escape-string-regexp');
+import { normaliseError, normaliseStats } from './normalise';
 import * as utils from './test-utils';
 import { TestSuite } from './TestSuite';
+import { compareFiles } from './compare';
 
 const argv = minimist(process.argv);
 const test = new TestSuite(argv['test'], argv['save-output']);
@@ -24,18 +24,30 @@ describe(test.title, function () {
 
         test.initTest();
 
+        process.chdir(test.paths.staging);
         const config = createWebPackConfig(test);
+        fs.writeFileSync(test.paths.webpackConfigJson, JSON.stringify(config, undefined, 4));
         const compiler = webpack(config);
         const watcher = compiler.watch({ aggregateTimeout: 1500 }, (err, stats) => {
-            cleanWebPackOutput(test, stats);
             runBundle(test, () => {
                 test.copyResults();
+                // cleanWebPackOutput(test, stats);
 
                 handleErrors(test, err);
                 storeStats(test, stats);
                 test.saveOutput();
 
-                compareFiles(test);
+                if (!test.shouldSaveOutput) {
+                    const diff = compareFiles(test);
+                    if (diff.hasChanges) {
+                        const diffText = diff.text.map(line => `     ${line}`).join('\n');
+                        throw new assert.AssertionError({
+                            message: `The actual output was different from the expected output:\n\n${diffText}`
+                        });
+                    }
+                }
+
+                // compareFilesOld(test);
                 copyPatchOrEndTest(test, watcher, done);
             });
         });
@@ -43,10 +55,10 @@ describe(test.title, function () {
 });
 
 function createWebPackConfig(test: TestSuite) {
-    const config: webpack.Configuration = require(path.resolve(test.paths.staging, 'webpack.config'));
+    const config: webpack.Configuration = require(test.paths.webpackConfig);
 
     config.output = config.output || {};
-    config.output.path = test.paths.webpackOutput;
+    config.output.path = test.paths.staging;
     config.context = test.paths.staging;
     utils.resolveLoaders(config);
 
@@ -67,23 +79,22 @@ function isNewModule(module: webpack.Module): module is webpack.NewModule {
  * environments; we want to generate a string that is as environment
  * independent as possible
  **/
-function cleanWebPackOutput(test: TestSuite, stats: any): void {
-    if (stats) {
-        const escapedStagingPath = utils.stagingPath.replace(new RegExp(regexEscape('\\'), 'g'), '\\\\');
-        for (const file of glob.sync('**/*', { cwd: test.paths.webpackOutput, nodir: true, dot: true })) {
-            const filePath = path.resolve(test.paths.webpackOutput, file);
-            const content = fs.readFileSync(filePath, 'utf-8')
-                .split(stats.hash).join('[hash]')
-                .replace(/\r\n/g, '\n')
-                // Ignore complete paths
-                .replace(new RegExp(regexEscape(escapedStagingPath), 'g'), '')
-                // turn \\ to /
-                .replace(new RegExp(regexEscape('\\\\'), 'g'), '/');
+// function cleanWebPackOutput(test: TestSuite, stats: any): void {
+//     if (stats) {
+//         const escapedStagingPath = utils.stagingPath.replace(new RegExp(regexEscape('\\'), 'g'), '\\\\');
+//         for (const file of [test.paths.actualPatchBundle]) {
+//             const content = fs.readFileSync(file, 'utf-8')
+//                 .split(stats.hash).join('[hash]')
+//                 .replace(/\r\n/g, '\n')
+//                 // Ignore absolute paths
+//                 .replace(new RegExp(regexEscape(escapedStagingPath), 'g'), '')
+//                 // turn \+ to /
+//                 .replace(/\\+/g, '/');
 
-            fs.writeFileSync(filePath, content);
-        }
-    }
-}
+//             fs.writeFileSync(file, content);
+//         }
+//     }
+// }
 
 function handleErrors(test: TestSuite, err: any) {
     if (err) {
@@ -96,7 +107,7 @@ function handleErrors(test: TestSuite, err: any) {
 
 function runBundle(test: TestSuite, callback: () => void): void {
     var proc = fork(test.paths.bundle, [], {
-        cwd: test.paths.webpackOutput,
+        cwd: test.paths.staging,
         silent: true
     });
 
@@ -130,40 +141,6 @@ function storeStats(test: TestSuite, stats: any) {
         const statsString = normaliseStats(test, stats);
         const statsFilePath = path.resolve(test.paths.actualPatchOutput, statsFileName);
         fs.writeFileSync(statsFilePath, statsString);
-    }
-}
-
-function compareFiles(test: TestSuite) {
-    if (!test.shouldSaveOutput) {
-        // compare actual to expected
-        const actualFiles = glob.sync('**/*', { cwd: test.paths.actualPatchOutput, nodir: true, dot: true });
-        const expectedFiles = glob.sync('**/*', { cwd: test.paths.expectedPatchOutput, nodir: true, dot: true })
-            .filter(function (file) { return !/^patch/.test(file); });
-        const allFiles: any = {};
-
-        actualFiles.forEach(function (file) { allFiles[file] = true });
-        expectedFiles.forEach(function (file) { allFiles[file] = true });
-
-        for (const file of Object.keys(allFiles)) {
-            const actual = getNormalisedFileContent(file, test.paths.actualPatchOutput);
-            const expected = getNormalisedFileContent(file, test.paths.expectedPatchOutput);
-            const fileName = `${test.patch ? test.patch + '/' : ''}${file}`;
-            assert.equal(actual, expected, `${fileName} is different between actual and expected`);
-        }
-    }
-}
-
-function getNormalisedFileContent(file: string, location: string): string {
-    const filePath = path.resolve(location, file);
-    try {
-        const contents = fs.readFileSync(filePath).toString();
-        if (file.indexOf('output.') === 0) {
-            return normaliseOutput(contents);
-        } else {
-            return normaliseString(contents);
-        }
-    } catch (e) {
-        return `!!!${filePath} doesn't exist!!!`;
     }
 }
 

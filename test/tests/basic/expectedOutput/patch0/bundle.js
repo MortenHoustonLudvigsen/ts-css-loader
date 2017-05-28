@@ -63,14 +63,14 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(1)(undefined);
 // imports
 
 
@@ -82,93 +82,6 @@ exports.push([module.i, "body {\r\n    font: 14px \"Century Gothic\", Futura, sa
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(6)(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".src-components-Board-board-row:after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: table;\r\n}\r\n\r\n.src-components-Board-status {\r\n    margin-bottom: 10px;\r\n}\r\n", ""]);
-
-// exports
-exports.locals = {
-	"board-row": "src-components-Board-board-row",
-	"boardRow": "src-components-Board-board-row",
-	"status": "src-components-Board-status"
-};
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../../../../../node_modules/css-loader/lib/css-base.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()))(undefined);
-// imports
-
-
-// module
-exports.push([module.i, ".src-components-Game-game {\n    display: flex;\n    flex-direction: row;\n}\n\n.src-components-Game-game-board {\n    margin-right: 20px;\n}\n\n.src-components-Game-game-info {\n    margin-left: 20px;\n}\n\n.src-components-Game-game-footerX {\n    margin-top: 20px;\n}\n", ""]);
-
-// exports
-exports.locals = {
-	"game": "src-components-Game-game",
-	"game-board": "src-components-Game-game-board",
-	"gameBoard": "src-components-Game-game-board",
-	"game-info": "src-components-Game-game-info",
-	"gameInfo": "src-components-Game-game-info",
-	"game-footerX": "src-components-Game-game-footerX",
-	"gameFooterX": "src-components-Game-game-footerX"
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Game_css_1 = __webpack_require__(2);
-var Board_1 = __webpack_require__(4);
-exports.Game = {
-    Board: Board_1.Board,
-    game: Game_css_1.locals.game,
-    gameBoard: Game_css_1.locals.gameBoard,
-    gameInfo: Game_css_1.locals.gameInfo,
-    gameFooter: Game_css_1.locals.gameFooter
-};
-console.log(exports.Game);
-
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Board_css_1 = __webpack_require__(1);
-exports.Board = {
-    boardRow: Board_css_1.locals.boardRow,
-    status: Board_css_1.locals.status
-};
-console.log(exports.Board);
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var index_css_1 = __webpack_require__(0);
-var Game_1 = __webpack_require__(3);
-console.log(index_css_1.locals);
-console.log(Game_1.Game);
-
-
-/***/ }),
-/* 6 */
 /***/ (function(module, exports) {
 
 /*
@@ -247,6 +160,91 @@ function toComment(sourceMap) {
 
 	return '/*# ' + data + ' */';
 }
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".src-components-Board-board-row:after {\r\n    clear: both;\r\n    content: \"\";\r\n    display: table;\r\n}\r\n\r\n.src-components-Board-status {\r\n    margin-bottom: 10px;\r\n}\r\n", ""]);
+
+// exports
+exports.locals = {
+	"board-row": "src-components-Board-board-row",
+	"boardRow": "src-components-Board-board-row",
+	"status": "src-components-Board-status"
+};
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(1)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, ".src-components-Game-game {\r\n    display: flex;\r\n    flex-direction: row;\r\n}\r\n\r\n.src-components-Game-game-board {\r\n    margin-right: 20px;\r\n}\r\n\r\n.src-components-Game-game-info {\r\n    margin-left: 20px;\r\n}\r\n\r\n.src-components-Game-game-footer {\r\n    margin-top: 20px;\r\n}\r\n", ""]);
+
+// exports
+exports.locals = {
+	"game": "src-components-Game-game",
+	"game-board": "src-components-Game-game-board",
+	"gameBoard": "src-components-Game-game-board",
+	"game-info": "src-components-Game-game-info",
+	"gameInfo": "src-components-Game-game-info",
+	"game-footer": "src-components-Game-game-footer",
+	"gameFooter": "src-components-Game-game-footer"
+};
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Game_css_1 = __webpack_require__(3);
+var Board_1 = __webpack_require__(5);
+exports.Game = {
+    Board: Board_1.Board,
+    game: Game_css_1.locals.game,
+    gameBoard: Game_css_1.locals.gameBoard,
+    gameInfo: Game_css_1.locals.gameInfo,
+    gameFooter: Game_css_1.locals.gameFooter
+};
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Board_css_1 = __webpack_require__(2);
+exports.Board = {
+    boardRow: Board_css_1.locals.boardRow,
+    status: Board_css_1.locals.status
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_css_1 = __webpack_require__(0);
+var Game_1 = __webpack_require__(4);
+console.log('css:', index_css_1.locals);
+console.log('Game:', Game_1.Game);
 
 
 /***/ })

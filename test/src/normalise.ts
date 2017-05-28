@@ -5,10 +5,8 @@ import { TestSuite } from './TestSuite';
 
 export function normaliseOutput(contents: string): string {
     return normaliseString(contents)
-        // We don't want a difference in the number of kilobytes to fail the build
-        .replace(/ \d+(\.\d*)? kB/g, ' A-NUMBER-OF kB')
-        // We also don't want a difference in the number of bytes to fail the build
-        .replace(/ \d+ bytes /g, ' A-NUMBER-OF bytes ')
+        // We don't want a difference in the number of (kilo, mega, giga)bytes to fail the build
+        .replace(/\s*\d+(\.\d*)? ([kmg]b|bytes)/gi, ' A-NUMBER-OF $1')
         // Sometimes "[built]" is written to output, and sometimes not. This should not fail the build
         .replace(/\s\[built\]/g, '')
         // Ignore whitespace between:     Asset     Size  Chunks             Chunk Names
@@ -19,14 +17,13 @@ export function normaliseString(contents: string): string {
     return contents
         .replace(/\r\n/g, '\n')
         .replace(/\\r\\n/g, '\\n')
-        // replace C:/source/ts-loader/index.js or /home/travis/build/TypeStrong/ts-loader/index.js with ts-loader
-        .replace(/ \S+[\/|\\]ts-loader[\/|\\]index.js/, 'ts-loader')
-        // replace (C:/source/ts-loader/dist/index.js with (ts-loader)
-        .replace(/\(\S+[\/|\\]ts-loader[\/|\\]dist[\/|\\]index.js:\d*:\d*\)/, '(ts-loader)')
         // Convert '/' to '\' and back to '/' so slashes are treated the same
         // whether running / generated on windows or *nix
-        .replace(new RegExp(regexEscape('/'), 'g'), '\\')
-        .replace(new RegExp(regexEscape('\\'), 'g'), '/');
+        .replace(/\/+/g, '\\').replace(/\\+/g, '/')
+        // replace C:/source/ts-loader/index.js or /home/travis/build/TypeStrong/ts-loader/index.js with ts-loader
+        .replace(/ \S+\/ts-css-loader\/(\S+)/g, 'ts-css-loader/$1')
+        // replace (C:/source/ts-loader/dist/index.js with (ts-loader)
+        .replace(/\(\S+\/ts-css-loader\/(\S+):\d*:\d*\)/g, '(ts-css-loader/$1)');
 }
 
 export function normaliseError(test: TestSuite, err: any): string {

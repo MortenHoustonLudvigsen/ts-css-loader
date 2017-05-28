@@ -33,7 +33,7 @@ export function resolveLoaders(config: webpack.Configuration) {
     config.resolveLoader = config.resolveLoader || {};
     config.resolveLoader.alias = config.resolveLoader.alias || {};
     config.resolveLoader.alias['ts-css-loader'] = path.resolve(rootPath, 'lib/ts-css-loader.js');
-    config.resolveLoader.alias['passthrough-loader'] = path.resolve(rootPath, 'lib/passthrough-loader.js');
+    config.resolveLoader.alias['passthrough-loader'] = path.resolve(testRootPath, 'lib/passthrough-loader.js');
     config.resolveLoader.alias['newLine'] = path.resolve(testRootPath, 'lib/newline.loader.js');
 }
 

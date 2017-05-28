@@ -1,7 +1,6 @@
 import * as Path from 'path';
 import * as typescript from 'typescript';
-import * as fs from 'fs';
-import { files, File } from './FileCache';
+import { files } from './FileCache';
 
 export class TsHost {
     constructor(compiler: string) {

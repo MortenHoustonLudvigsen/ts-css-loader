@@ -1,6 +1,4 @@
-import * as path from 'path';
 import * as Tapable from 'tapable';
-import * as webpack from 'webpack';
 
 declare module 'webpack' {
     interface Compiler {
@@ -21,6 +19,7 @@ declare module 'webpack' {
         contextDependencies: string[];
         missingDependencies: string[];
         fileTimestamps: { [path: string]: number };
+        addModuleDependencies(module: any, dependencies: any[], bail: boolean, cacheGroup: any, recursive: boolean, callback: (err?: any) => void): void;
     }
 
     interface Watching {
