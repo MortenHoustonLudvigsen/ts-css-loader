@@ -6,11 +6,11 @@ import { TestSuite } from './TestSuite';
 export function normaliseOutput(contents: string): string {
     return normaliseString(contents)
         // We don't want a difference in the number of (kilo, mega, giga)bytes to fail the build
-        .replace(/\s*\d+(\.\d*)? ([kmg]b|bytes)/gi, ' A-NUMBER-OF $1')
+        .replace(/\s*\d+(?:\.\d*)?\s*([kmg]b|bytes)/gi, ' A-NUMBER-OF $1')
         // Sometimes "[built]" is written to output, and sometimes not. This should not fail the build
         .replace(/\s\[built\]/g, '')
         // Ignore whitespace between:     Asset     Size  Chunks             Chunk Names
-        .replace(/\s+Asset\s+Size\s+Chunks\s+Chunk Names/, '    Asset     Size  Chunks             Chunk Names');
+        .replace(/\s+Asset\s+Size\s+Chunks\s+Chunk Names/g, ' Asset  Size  Chunks  Chunk Names');
 }
 
 export function normaliseString(contents: string): string {

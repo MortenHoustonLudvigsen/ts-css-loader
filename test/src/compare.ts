@@ -56,6 +56,8 @@ export function compareFile(test: TestSuite, file: string) {
                 case '-':
                     lines.push(chalk.green(line));
                     break;
+                case '\\':
+                    break;
                 default:
                     lines.push(line);
                     break;
