@@ -20,10 +20,8 @@ export function compareFiles(test: TestSuite) {
         hasChanges: files.some(f => f.hasChanges),
         text: files.reduce((lines, file) => {
             if (file.hasChanges) {
-                if (lines.length > 0) {
-                    lines.push('');
-                }
                 lines.push(chalk.red(`File ${file.patch}/${file.file}:`));
+                lines.push('');
                 lines.push(chalk.green(`-expected `) + chalk.red(`+actual`));
                 lines.push('');
                 lines = lines.concat(file.diff);
